@@ -22,7 +22,6 @@ public class LogEngine {
 		System.out.println("Size of queue after ingestion -> " + queue.getSize());
 		
 		System.out.println("\n--- Processing and Parsing Ingestion Buffer ---");
-		System.out.println();
 		
 		List<LogRecord> parsedRecords = new ArrayList<>();
 		List<String> logViolations = new ArrayList<>();
