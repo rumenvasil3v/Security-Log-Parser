@@ -8,10 +8,10 @@ public class LogEngine {
 	public static void main(String[] args) {
 		IngestionQueue queue = new IngestionQueue();
 
-		String[] mockLogs = { "[1717758000] [INFO] [IP: 192.168.1.10] - User logged in successfully.",
-				"[1717758002] [WARN] [IP: 10.0.0.5] - Invalid password attempt.",
-				"[1717758005] [ERROR] [IP: 192.168.1.50 - Malformed bracket error here!",
-				"[1717758010] [INFO] [IP: 192.168.1.10] - User viewing dashboard." };
+		String[] mockLogs = { "[1717758023] [INFO] [IP: 192.168.1.10] - User logged in successfully.",
+				"[1717758056] [WARN] [IP: 10.0.0.5] - Invalid password attempt.",
+				"[1717758043] [ERROR] [IP: 192.168.1.50 - Malformed bracket error here!",
+				"[1717758000] [INFO] [IP: 192.168.1.10] - User viewing dashboard." };
 		
 		System.out.println("Ingesting raw logs");
 		
@@ -37,14 +37,28 @@ public class LogEngine {
 			}
 		}
 		
-		System.out.println("\nSuccessfully Parsed Records:");
+//		System.out.println("\nSuccessfully Parsed Records:");
+//		for (LogRecord record: parsedRecords) {
+//			System.out.println(" -> " + record.toString());
+//		}
+//		
+//		System.out.println("\n[ALERT] Defective or Malformed Logs Detected:");
+//		for (String badLog: logViolations) {
+//			System.out.println(" -> " + badLog);
+//		}
+		
+		System.out.println("\n--- Chronological Sorting Engine ---");
+		System.out.println("\nUnsorted Parsed Records (Order of Arrival):");
+		
 		for (LogRecord record: parsedRecords) {
 			System.out.println(" -> " + record.toString());
 		}
 		
-		System.out.println("\n[ALERT] Defective or Malformed Logs Detected:");
-		for (String badLog: logViolations) {
-			System.out.println(" -> " + badLog);
+		RadixSorter.sort(parsedRecords);
+		
+		System.out.println("Sorted records:");
+		for (LogRecord record: parsedRecords) {
+			System.out.println(" -> " + record.toString());
 		}
 	}
 }
